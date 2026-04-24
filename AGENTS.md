@@ -60,11 +60,16 @@ Any PR that touches gameplay should keep `npm test` green.
 
 ## Game rules reference
 
-- **Portal** unlocks at 50 gems (Gem Quest HUD threshold).
-- **Banana** costs 100 gems in the shop; 10 bananas → win.
-- **Energy**: starts at 800; drains only while the player is moving.
-- **Bonus quiz**: auto-triggers every 10 gems (no wager; wrong answer re-rolls until correct).
-- **Wager quiz (J)**: requires ≥ 500 energy; correct → +wager energy, wrong → new question until correct.
+- **Levels**: 3 themed worlds — (1) Forest 20×20, (2) City 32×32 w/ NPCs + cars + bus stops, (3) Volcano 22×22 w/ lava.
+- **Portal** per level: unlocks after collecting the level's threshold of gems (L1=20, L2=30, L3=70 — see `portalUnlock` in `gqBuildLevel`). Walking into the portal advances to the next level; portal in L3 wins the game.
+- **Energy**: starts at 3000; drains only while the player is moving.
+- **Earn Energy button** (🔋 EARN 1000): single-question quiz, correct → +1000 energy. Wrong answer → new question until correct.
+- **Wager quiz (J / JEOPARDY!)**: requires ≥ 500 energy; correct → +wager energy, wrong → new question until correct.
+- **Bonus quiz**: auto-triggers every 25 gems (no wager; wrong answer re-rolls until correct).
+- **Banana** costs 100 gems in the shop (L1 + L2 have shops; L3 does not). Bananas are an optional collectible — not a win condition.
+- **Water/Lava** tiles are walkable: stepping on them freezes movement and prompts `SPACE` to climb back to the last dry tile.
+- **Bus stops** (L2 only): stepping on one opens a destination picker — 5 gems per ride teleports you to the chosen stop.
+- **Character picker**: shown on first entry to Gem Quest; the hero's shirt/skin colors feed the first-person hand sprite and minimap marker.
 - **Questions**: drawn from a 4th-grade fractions chapter test (items 4–31 only; items 1–3 were visual diagrams and are excluded).
 
 ## Things NOT to do
