@@ -36,7 +36,7 @@ function GameHub({ onPick }) {
         <GameCard
           title="Gem Quest"
           tag="ADVENTURE"
-          desc="Walk the world collecting gems. Unlock the portal at 50 gems. Trade 100 gems for bananas. Bet energy on math questions. Collect 10 bananas to win!"
+          desc="Pick your hero, then explore 3 worlds: Forest, City, and Volcano. Collect gems, wager energy on math, ride buses, and reach the portal to win!"
           emoji="💎"
           color="#7EE8A6"
           bg="linear-gradient(180deg, #2A5F3A 0%, #0F3820 100%)"
