@@ -2,3 +2,5 @@
 node_modules/
 *.log
 target/
+playwright-report/
+test-results/
