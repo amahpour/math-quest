@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Math Quest — 4th Grade Game Suite</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@700;900&family=Inter:wght@400;600;700;800&family=Chango&family=Fredoka+One&family=Patrick+Hand&family=Caveat:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+
+<style>
+  html, body { margin: 0; padding: 0; height: 100%; background: #f0eee9; overscroll-behavior: none; }
+  * { box-sizing: border-box; }
+
+  @keyframes mq-pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.06); } }
+  @keyframes mq-wiggle { 0%,100% { transform: rotate(-1deg); } 25% { transform: rotate(2deg); } 50% { transform: rotate(-2deg); } 75% { transform: rotate(1deg); } }
+  @keyframes mq-zoom-in { 0% { transform: scale(0.94); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+
+  @keyframes gq-hop { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+  @keyframes gq-float { 0%,100% { transform: translateY(0) rotate(0); } 50% { transform: translateY(-4px) rotate(6deg); } }
+  @keyframes gq-portal-spin { 0% { transform: rotate(0); filter: hue-rotate(0); } 100% { transform: rotate(360deg); filter: hue-rotate(60deg); } }
+  @keyframes gq-fadein { 0% { opacity: 0; transform: scale(.95); } 100% { opacity: 1; transform: scale(1); } }
+  @keyframes gq-pop { 0% { transform: translateX(-50%) scale(.5); opacity: 0; } 100% { transform: translateX(-50%) scale(1); opacity: 1; } }
+  @keyframes gq-pulse-soft { 0%,100% { box-shadow: 0 4px 0 #8a6600, 0 0 20px rgba(255,204,0,0.5); } 50% { box-shadow: 0 4px 0 #8a6600, 0 0 32px rgba(255,204,0,0.8); } }
+</style>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<script src="questions.js"></script>
+<script src="mc-questions.js"></script>
+<script src="sounds.js"></script>
+<script src="themes.js"></script>
+
+<script type="text/babel" src="tex.jsx"></script>
+<script type="text/babel" src="game-views.jsx"></script>
+<script type="text/babel" src="game-core.jsx"></script>
+<script type="text/babel" src="gemquest-world.jsx"></script>
+<script type="text/babel" src="gemquest-modals.jsx"></script>
+<script type="text/babel" src="gemquest-1p.jsx"></script>
+<script type="text/babel" src="gemquest-main.jsx"></script>
+<script type="text/babel" src="hub.jsx"></script>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="text/babel" data-presets="react">
+function Suite() {
+  const [screen, setScreen] = React.useState('hub');
+  if (screen === 'hub') return <GameHub onPick={setScreen} />;
+  if (screen === 'jeopardy') return (
+    <div style={{ position: 'absolute', inset: 0 }}>
+      <button onClick={() => setScreen('hub')} style={{
+        position: 'absolute', top: 18, left: 18, zIndex: 100,
+        background: 'rgba(0,0,0,0.4)', border: '1.5px solid rgba(255,255,255,0.3)',
+        color: 'white', padding: '6px 12px', borderRadius: 8, cursor: 'pointer',
+        fontFamily: '"Fredoka One", sans-serif', fontSize: 12, letterSpacing: 1,
+      }}>◀ Menu</button>
+      <MathJeopardy theme={window.THEME_CLASSIC} />
+    </div>
+  );
+  if (screen === 'gemquest') return <GemQuest onHome={() => setScreen('hub')} />;
+  return null;
+}
+
+function App() {
+  return (
+    <div style={{ position: 'fixed', inset: 0, background: '#060647', overflow: 'hidden' }}>
+      <Suite />
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>
